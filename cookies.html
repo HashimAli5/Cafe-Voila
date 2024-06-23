@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="chinese">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookies and Cakes - Cafe Voila</title>
+  <script src="https://kit.fontawesome.com/b88cb8c8d0.js" crossorigin="anonymous"></script>
+  <style>
+
+    header {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin: 0;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+
+    body {
+      background-image: url(background.jpeg);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      background-blend-mode: luminosity;
+      background-color: #331a00;
+    }
+
+    button {
+      background-color: peru;
+      border: 1px solid black;
+      color: white;
+      padding: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-family: 'Times New Roman', Times, serif;
+      border-radius: 5px;
+    }
+
+    .food-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .food-item {
+  width: 300px; /* Decreased width */
+  height: 435px; /* Adjusted height */
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #ddd; /* Small white border */
+  background-color: #331a00;
+  color: wheat;
+}
+
+
+    .food-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .food-details {
+        margin-top: -20px;
+      padding: 20px;
+     
+    }
+
+    .food-title {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    footer {
+      background-color: #996633;
+      padding: 10px;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+margin-top: 50px;
+    }
+    /* New styles for cart feature */
+
+    .cart-icon {
+      position: fixed;
+      top: 25px;
+      right: 10px;
+      background-color: #60401f;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .cart-dropdown {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      background-color: #60401f;
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      max-width: 300px;
+      font-family: Arial;
+      z-index: 1000;
+      max-height: 300px; /* Adjust max height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    .cart-dropdown h3
+    {
+        margin-top: 3px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    
+    }
+    
+
+    .cart-total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .cart-controls {
+  display: flex;
+  align-items: center;
+}
+
+.cart-controls button {
+  width: 30px;
+  height: 30px;
+  background-color: peru;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-top: -5px;
+}
+
+
+    .cart-controls span {
+      margin: 0 10px;
+      font-size: 18px;
+    }
+
+    .remove-button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      border-radius: 5px;
+      margin-left: 15px;
+    }
+    .clear-cart {
+    position: absolute;
+    bottom: 13px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px; /* Adjust as needed */
+    text-decoration: underline;
+}
+.checkout {
+    display: block;
+    margin: 20px auto 10px auto; /* Center horizontally with some margin */
+    padding: 10px 20px; /* Padding for a larger clickable area */
+    background-color: #28a745; /* Green background color */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Larger font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center text */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.checkout:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+   
+  </style>
+  </style>
+</head>
+
+<body>
+    <header>
+        <a href="home.html" style="text-decoration: none; color: inherit; display: inline-block;">
+          <h1 style="color: wheat; font-size: 26px; margin-top: 30px;">
+            <i class="fa-solid fa-mug-hot"></i> <i class="fa-solid fa-cookie-bite"></i> Cafe Voila
+          </h1>
+        </a>
+      </header>
+      
+      <br>
+      
+      <div class="cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+    </div>
+    <div class="cart-dropdown" id="cart-dropdown">
+        <h3>Cart</h3>
+        <div id="cart-items"></div>
+        <div class="cart-empty" id="cart-empty">Your cart is empty.</div>
+        <div class="cart-total" id="cart-total-container">Total: $<span id="cart-total">0.00</span></div>
+        <div class="delivery-charge" id="delivery-charges-container">Delivery Charges: $<span id="delivery-charges">3.00</span></div>
+        <div class="grand-total" id="grand-total-container">Grand Total: $<span id="grand-total">0.00</span></div>
+        <button id="clear-cart" class="clear-cart">Clear Cart</button>
+        <button id="checkout" class="checkout">Checkout</button>
+    </div>
+      
+      <div class="food-container">
+        <div class="food-item" data-id="1" data-name="Chocolate Chip Cookie" data-price="2.00">
+          <img src="cookiePic.jpeg" alt="Chocolate Chip Cookie" class="food-image">
+          <div class="food-details">
+            <h2 class="food-title">Choco Chip Cookie</h2>
+            <p class="food-description">A chocolate chip cookie with a crispy edge and chewy center.</p>
+            <p class="food-price">$2.00</p>
+            <div class="quantity-control">
+              <button class="quantity-minus">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-plus">+</button>
+            </div>
+            <button class="order-button">Add to Cart</button>
+          </div>
+        </div>
+    
+        <div class="food-item" data-id="2" data-name="Red Velvet Cake" data-price="4.50">
+          <img src="redValvet.jpeg" alt="Red Velvet Cake" class="food-image">
+          <div class="food-details">
+            <h2 class="food-title">Red Velvet Cake</h2>
+            <p class="food-description">A rich and moist red velvet cake with cream cheese frosting.</p>
+            <p class="food-price">$4.50</p>
+            <div class="quantity-control">
+              <button class="quantity-minus">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-plus">+</button>
+            </div>
+            <button class="order-button">Add to Cart</button>
+          </div>
+        </div>
+        <div class="food-item" data-id="3" data-name="Brownie" data-price="2.00">
+            <img src="brownie.jpg" alt="Brownie" class="food-image">
+            <div class="food-details">
+              <h2 class="food-title">Brownie</h2>
+              <p class="food-description">A rich chocolate brownie with a fudgy center.</p>
+              <p class="food-price">$2.00</p>
+              <div class="quantity-control">
+                <button class="quantity-minus">-</button>
+                <span class="quantity">1</span>
+                <button class="quantity-plus">+</button>
+              </div>
+              <button class="order-button">Add to Cart</button>
+            </div>
+          </div>
+        <div class="food-item" data-id="4" data-name="Macarons" data-price="3.00">
+          <img src="macron.jpg" alt="Macarons" class="food-image">
+          <div class="food-details">
+            <h2 class="food-title">Macarons</h2>
+            <p class="food-description">Assorted colorful macarons with a delicate shell and soft filling.</p>
+            <p class="food-price">$3.00</p>
+            <div class="quantity-control">
+              <button class="quantity-minus">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-plus">+</button>
+            </div>
+            <button class="order-button">Add to Cart</button>
+          </div>
+        </div>
+    
+        <div class="food-item" data-id="5" data-name="Blueberry Muffin" data-price="2.50">
+          <img src="muffin.jpg" alt="Blueberry Muffin" class="food-image">
+          <div class="food-details">
+            <h2 class="food-title">Blueberry Muffin</h2>
+            <p class="food-description">A soft muffin bursting with fresh blueberries.</p>
+            <p class="food-price">$2.50</p>
+            <div class="quantity-control">
+              <button class="quantity-minus">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-plus">+</button>
+            </div>
+            <button class="order-button">Add to Cart</button>
+          </div>
+        </div>
+    
+        <div class="food-item" data-id="6" data-name="Cheesecake" data-price="4.00">
+          <img src="cheesecake.jpeg" alt="Cheesecake" class="food-image">
+          <div class="food-details">
+            <h2 class="food-title">Cheesecake</h2>
+            <p class="food-description">A creamy cheesecake with a graham cracker crust.</p>
+            <p class="food-price">$4.00</p>
+            <div class="quantity-control">
+              <button class="quantity-minus">-</button>
+              <span class="quantity">1</span>
+              <button class="quantity-plus">+</button>
+            </div>
+            <button class="order-button">Add to Cart</button>
+          </div>
+        </div>
+    
+      
+      </div>
+    
+      <footer>
+        &copy; Cafe Voila. All rights reserved.
+      </footer>
+    
+      <script src="cart.js"></script>
+
+</body>
+</html>

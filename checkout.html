@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/b88cb8c8d0.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* Your existing CSS styles */
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #331a00;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Brush Script MT', cursive;
+}
+
+header h1 {
+    color: wheat;
+    margin: 0;
+    font-size: 26px;
+}
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 15px 20px; /* Reduced padding */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    flex: 1;
+}
+
+.checkout-form, .checkout-summary {
+    width: 48%;
+}
+
+.checkout-summary {
+    background-color: peru;
+}
+
+h2 {
+    margin-bottom: 15px; /* Reduced margin */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    margin-bottom: 10px; /* Reduced margin */
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.payment-method {
+    margin-top: 20px; /* Reduced margin */
+}
+
+.payment-method h2 {
+    font-size: 18px;
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.payment-options {
+    display: flex;
+    gap: 10px; /* Reduced gap */
+    justify-content: center;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px; /* Reduced padding */
+    border: 2px solid #e5e5e5;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    flex: 1; /* Ensure the payment options fit within the container */
+    
+}
+
+.payment-option.selected {
+    border-color: #ffc107;
+}
+
+.payment-option img {
+    width: 20px; /* Reduced size */
+    height: 20px; /* Reduced size */
+    margin-right: 5px; /* Reduced margin */
+}
+
+.payment-option span {
+    font-size: 12px; /* Reduced font size */
+    color: #333;
+}
+
+.checkout {
+    background-color: #28a745;
+    color: #fff;
+    padding: 15px 20px; /* Reduced padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px; /* Reduced margin */
+}
+
+.checkout:hover {
+    background-color: #218838;
+}
+
+.checkout-summary {
+    padding-left: 15px; /* Reduced padding */
+}
+
+.cart-total, .delivery-charge, .grand-total {
+    margin-top: 10px; /* Reduced margin */
+}
+
+.chef-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Reduced margin */
+}
+
+.chef-animation img {
+    width: 300px; /* Reduced size */
+    height: auto;
+    border-radius: 10px;
+}
+
+footer {
+    width: 100%;
+    background-color: #996633;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-top: 30px;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="home.html" style="text-decoration: none; color: inherit; display: inline-block;">
+          <h1 style="color: wheat; font-size: 26px; margin-top: 20px;">
+            <i class="fa-solid fa-mug-hot"></i> <i class="fa-solid fa-cookie-bite"></i> Cafe Voila
+          </h1>
+        </a>
+      </header>
+
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <h2>Shipping Information</h2>
+            <form id="shipping-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required></textarea>
+
+                <label for="instruction">Special Instructions(optional):</label>
+                <textarea id="instruction" name="instruction" ></textarea>
+            </form>
+
+            <div class="payment-method">
+                <h2>Select Payment Method</h2>
+                <div class="payment-options">
+                    <div style="margin-left: 25px;" class="payment-option selected" id="cash" onclick="selectPaymentMethod('cash')">
+                        <img src="cash.png" alt="Cash On Delivery">
+                        <span>Cash On Delivery</span>
+                    </div>
+                    <div class="payment-option" id="card" onclick="selectPaymentMethod('card')">
+                        <img src="card.png" alt="Credit/Debit Card">
+                        <span>Credit/Debit Card</span>
+                    </div>
+                    <div class="payment-option" id="jazzcash" onclick="selectPaymentMethod('jazzcash')">
+                        <img src="jz.png" alt="JazzCash">
+                        <span>JazzCash</span>
+                        <span style="font-size: 8px; margin-left: 2px;">pay upon delivery</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="confirm-order" class="checkout">Confirm Order</button>
+        </div>
+        
+        <div class="checkout-summary">
+            <h2>Order Summary</h2>
+            <div id="cart-summary"></div>
+            <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+            <div class="delivery-charge">Delivery Charges: $<span id="delivery-charges">3.00</span></div>
+            <div class="grand-total">Grand Total: $<span id="grand-total">0.00</span></div>
+            <div class="chef-animation">
+                <img src="barrista.gif" alt="Chef Cooking">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; Cafe Voila. All rights reserved.
+    </footer>
+
+    <script src="checkout.js"></script>
+</body>
+</html>
